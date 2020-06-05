@@ -171,6 +171,13 @@ func writeValue(buf *bytes.Buffer, val reflect.Value, fltr structFieldFilter) {
 			}
 			buf.WriteString(items[i].name)
 			buf.WriteByte(':')
+
+			// Ignore loc pointer
+			if items[i].name == "loc" {
+				buf.WriteString("0")
+				continue
+			}
+
 			writeValue(buf, items[i].value, fltr)
 		}
 		buf.WriteByte('}')
